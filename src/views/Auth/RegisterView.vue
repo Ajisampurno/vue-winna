@@ -21,48 +21,69 @@
                                             <div class="form-group mb-3">
                                                 <label for="nickname">Nama panggilan</label>
                                                 <input type="text" v-model="user.nickname" class="form-control"
-                                                    id="nickname" placeholder="Nickname" required>
+                                                    id="nickname" placeholder="Nickname">
                                             </div>
 
                                             <!--Full name-->
                                             <div class="form-group mb-3">
                                                 <label for="full_name">Nama lengkap</label>
                                                 <input type="text" v-model="user.full_name" class="form-control"
-                                                    id="full_name" placeholder="Nama lengkap" required>
+                                                    id="full_name" placeholder="Nama lengkap">
                                             </div>
 
-                                            <!--Username-->
+                                            <!--Phone number-->
                                             <div class="form-group mb-3">
-                                                <label for="username">Username</label>
-                                                <input type="text" v-model="user.username" class="form-control"
-                                                    id="username" placeholder="Username" required>
+                                                <label for="phone_number">No telp </label>
+                                                <div class="form-group mb-3">
+                                                    <input type="text" v-model="user.phone_number" class="form-control"
+                                                        id="phone_number" placeholder="Phone number">
+                                                </div>
                                             </div>
 
-                                            <!--Password-->
-                                            <div class="form-group mb-3">
-                                                <label for="password">Password</label>
-                                                <input type="password" v-model="user.password" class="form-control"
-                                                    id="password" placeholder="Password" required>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <!--Username-->
+                                                    <div class="form-group mb-3">
+                                                        <label for="username">Username</label>
+                                                        <input type="text" v-model="user.username" class="form-control"
+                                                            id="username" placeholder="Username">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <!--Password-->
+                                                    <div class="form-group mb-3">
+                                                        <label for="password">Password</label>
+                                                        <input type="password" v-model="user.password"
+                                                            class="form-control" id="password" placeholder="Password">
+                                                    </div>
+                                                </div>
                                             </div>
 
                                             <!--NISN-->
                                             <div class="form-group mb-3">
                                                 <label for="nisn">NISN</label>
                                                 <input type="text" v-model="user.nisn" class="form-control" id="nisn"
-                                                    placeholder="NISN" required>
+                                                    placeholder="NISN">
                                             </div>
                                             <!--NIK-->
                                             <div class="form-group mb-3">
                                                 <label for="nik_ktp">NIK</label>
                                                 <input type="text" id="nik_ktp" v-model="user.nik_ktp"
-                                                    class="form-control" placeholder="NIK KTP" required>
+                                                    class="form-control" placeholder="NIK KTP">
                                             </div>
 
                                             <!--NIP-->
                                             <div class="form-group mb-3">
                                                 <label for="nip">NIP</label>
                                                 <input type="text" id="nip" v-model="user.nip" class="form-control"
-                                                    placeholder="NIP" required>
+                                                    placeholder="NIP">
+                                            </div>
+
+                                            <!--Nim-->
+                                            <div class="form-group mb-3">
+                                                <label for="nim">Nim</label>
+                                                <input type="text" id="nim" v-model="user.nim" class="form-control"
+                                                    placeholder="Nim">
                                             </div>
 
                                             <!--Tempat, tgl lahir-->
@@ -73,9 +94,9 @@
                                                         <label for="birth_place">Birth Place</label>
                                                         <select v-model="user.birth_place" name="birth_place"
                                                             id="birth_place" class="form-control select2">
-                                                            <option v-for="domicilie in domicilies" :key="domicilie.id"
-                                                                :value="domicilie.id">
-                                                                {{ domicilie.city_name }}
+                                                            <option v-for="cityData in cityDatas" :key="cityData.id"
+                                                                :value="cityData.id">
+                                                                {{ cityData.city_name }}
                                                             </option>
                                                         </select>
                                                     </div>
@@ -85,7 +106,7 @@
                                                     <div class="form-group mb-3">
                                                         <label for="birth_date">Birth Date</label>
                                                         <input type="date" v-model="user.birth_date"
-                                                            class="form-control" placeholder="Birth Date" required>
+                                                            class="form-control" placeholder="Birth Date">
                                                     </div>
                                                 </div>
                                             </div>
@@ -96,7 +117,7 @@
                                                     <label for="wali_name">Nama wali</label>
                                                     <div class="form-group mb-3">
                                                         <input type="text" v-model="user.wali_name" class="form-control"
-                                                            id="wali_name" placeholder="Wali Name" required>
+                                                            id="wali_name" placeholder="Wali Name">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -104,7 +125,7 @@
                                                     <div class="form-group mb-3">
                                                         <input type="text" v-model="user.wali_phone"
                                                             class="form-control" id="wali_phone"
-                                                            placeholder="Wali Phone" required>
+                                                            placeholder="Wali Phone">
                                                     </div>
                                                 </div>
                                             </div>
@@ -114,9 +135,9 @@
                                                 <label for="school_code">School Code</label>
                                                 <select v-model="user.school_code" name="school_code" id="school_code"
                                                     class="form-control select2" style="width: 100%;">
-                                                    <option v-for="schoolUserCode in schoolUserCodes"
-                                                        :key="schoolUserCode.id" :value="schoolUserCode.id">
-                                                        {{ schoolUserCode.code }}
+                                                    <option v-for="schoolCode in schoolCodes" :key="schoolCode.id"
+                                                        :value="schoolCode.id">
+                                                        {{ schoolCode.code }}
                                                     </option>
                                                 </select>
                                             </div>
@@ -128,18 +149,25 @@
                                                         <label for="bank_name">Nama bank</label>
                                                         <select v-model="user.bank_name" name="bank_name" id="bank_name"
                                                             class="form-control select2">
-                                                            <option v-for="bankData in bankDatas" :key="bankData.id"
-                                                                :value="bankData.id">
-                                                                {{ bankData }}
+                                                            <option v-for="bank in bankDatas" :key="bank.id"
+                                                                :value="bank.id">
+                                                                {{ bank.bank_name }}
                                                             </option>
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-">
                                                     <label for="rek_no">No rekening</label>
                                                     <div class="form-group mb-3">
                                                         <input type="number" v-model="user.rek_no" class="form-control"
-                                                            id="rek_no" placeholder="No rekening" required>
+                                                            id="rek_no" name="rek_no" placeholder="No rekening">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>About Me</label>
+                                                        <textarea class="form-control" v-model="user.about_me" rows="3"
+                                                            placeholder="Enter ..." name="about_me"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -150,8 +178,7 @@
                                             <!--Religion-->
                                             <div class="form-group mb-3">
                                                 <label for="religion">Religion</label>
-                                                <select v-model="user.religion" id="religion" class="custom-select"
-                                                    required>
+                                                <select v-model="user.religion" id="religion" class="custom-select">
                                                     <option value="" disabled selected class="text-muted">
                                                         Select religion
                                                     </option>
@@ -162,20 +189,12 @@
                                                 </select>
                                             </div>
 
-                                            <!--Address domicilie-->
-                                            <label for="">Address domicilie</label>
+                                            <!--Domicilie-->
+                                            <label for="">Domicilie</label>
                                             <div class="card mb-3">
                                                 <div class="card-body">
                                                     <!--Map button-->
                                                     <div class="row">
-                                                        <div class="col-md-6">
-                                                            <label for="domicilie_address">Address</label>
-                                                            <div class="form-group mb-3">
-                                                                <input type="text" v-model="user.domicilie_address"
-                                                                    class="form-control" id="domicilie_address"
-                                                                    placeholder="Address" required>
-                                                            </div>
-                                                        </div>
                                                         <div class="col-md-6">
                                                             <label for=""></label>
                                                             <div class="form-group mb-3">
@@ -186,24 +205,23 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <!-- Latitude 1 -->
                                                             <div class="form-group mb-3">
-                                                                <label for="latitude">Latitude</label>
-                                                                <input type="text" v-model="latitude"
-                                                                    class="form-control" id="latitude"
-                                                                    placeholder="Latitude" required>
+                                                                <label for="domicilie_latitude">Latitude</label>
+                                                                <input type="text" v-model="domicilie_latitude"
+                                                                    class="form-control" id="domicilie_latitude"
+                                                                    placeholder="Latitude">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <!-- Longitude 1 -->
                                                             <div class="form-group mb-3">
-                                                                <label for="longitude">Longitude</label>
-                                                                <input type="text" v-model="longitude"
-                                                                    class="form-control" id="longitude"
-                                                                    placeholder="Longitude" required>
+                                                                <label for="domicilie_longitude">Longitude</label>
+                                                                <input type="text" v-model="domicilie_longitude"
+                                                                    class="form-control" id="domicilie_longitude"
+                                                                    placeholder="Longitude">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -213,12 +231,12 @@
                                                         <div class="col-md-6">
                                                             <!--Country-->
                                                             <div class="form-group mb-3">
-                                                                <label for="country_id">Country</label>
-                                                                <select v-model="user.country_id" id="country_id"
-                                                                    class="custom-select" required>
+                                                                <label for="domicilie_country_id">Country</label>
+                                                                <select v-model="user.domicilie_country_id"
+                                                                    id="domicilie_country_id" class="custom-select">
                                                                     <option value="" disabled selected
                                                                         class="text-muted">
-                                                                        Select country_id
+                                                                        Select country
                                                                     </option>
                                                                     <option v-for="countryData in countryDatas"
                                                                         :key="countryData.id" :value="countryData.id">
@@ -230,9 +248,9 @@
                                                         <div class="col-md-6">
                                                             <!--Province-->
                                                             <div class="form-group mb-3">
-                                                                <label for="province_id">Province</label>
-                                                                <select v-model="user.province_id" id="province_id"
-                                                                    class="custom-select" required>
+                                                                <label for="domicilie_province_id">Province</label>
+                                                                <select v-model="user.domicilie_province_id"
+                                                                    id="domicilie_province_id" class="custom-select">
                                                                     <option value="" disabled selected
                                                                         class="text-muted">
                                                                         Select province
@@ -245,14 +263,30 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                     <div class="row">
+                                                        <div class="col-md-6">
+                                                            <!--City-->
+                                                            <div class="form-group mb-3">
+                                                                <label for="domicilie_city_id">City</label>
+                                                                <select v-model="user.domicilie_city_id"
+                                                                    id="domicilie_city_id" class="custom-select">
+                                                                    <option value="" disabled selected
+                                                                        class="text-muted">
+                                                                        Select city
+                                                                    </option>
+                                                                    <option v-for="cityData in cityDatas"
+                                                                        :key="cityData.id" :value="cityData.id">
+                                                                        {{ cityData.city_name }}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
                                                         <div class="col-md-6">
                                                             <!--Kecamatan-->
                                                             <div class="form-group mb-3">
-                                                                <label for="kecamatan_id">Kecamatan</label>
-                                                                <select v-model="user.kecamatan_id" id="kecamatan_id"
-                                                                    class="custom-select" required>
+                                                                <label for="domicilie_kecamatan_id">Kecamatan</label>
+                                                                <select v-model="user.domicilie_kecamatan_id"
+                                                                    id="domicilie_kecamatan_id" class="custom-select">
                                                                     <option value="" disabled selected
                                                                         class="text-muted">
                                                                         Select kecamatan
@@ -265,12 +299,14 @@
                                                                 </select>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    <div class="row">
                                                         <div class="col-md-6">
                                                             <!--kelurahan-->
                                                             <div class="form-group mb-3">
-                                                                <label for="kelurahan_id">Kelurahan</label>
-                                                                <select v-model="user.kelurahan_id" id="kelurahan_id"
-                                                                    class="custom-select" required>
+                                                                <label for="domicilie_kelurahan_id">Kelurahan</label>
+                                                                <select v-model="user.domicilie_kelurahan_id"
+                                                                    id="domicilie_kelurahan_id" class="custom-select">
                                                                     <option value="" disabled selected
                                                                         class="text-muted">
                                                                         Select kelurahan
@@ -283,24 +319,24 @@
                                                                 </select>
                                                             </div>
                                                         </div>
+                                                        <div class="col-md-6">
+                                                            <label for="domicilie">Address</label>
+                                                            <div class="form-group mb-3">
+                                                                <input type="text" v-model="user.domicilie"
+                                                                    class="form-control" id="domicilie"
+                                                                    placeholder="Address">
+                                                            </div>
+                                                        </div>
                                                     </div>
-
                                                 </div>
                                             </div>
-                                            <!--Address domicilie-->
-                                            <label for="">Address domicilie</label>
+
+                                            <!--Address-->
+                                            <label for="">Address</label>
                                             <div class="card mb-3">
                                                 <div class="card-body">
                                                     <!--Map button-->
                                                     <div class="row">
-                                                        <div class="col-md-6">
-                                                            <label for="rek_no">Address</label>
-                                                            <div class="form-group mb-3">
-                                                                <input type="text" v-model="user.domicilie_address"
-                                                                    class="form-control" id="rek_no"
-                                                                    placeholder="Address" required>
-                                                            </div>
-                                                        </div>
                                                         <div class="col-md-6">
                                                             <label for=""></label>
                                                             <div class="form-group mb-3">
@@ -317,34 +353,33 @@
                                                         <div class="col-md-6">
                                                             <!-- Latitude 2 -->
                                                             <div class="form-group mb-3">
-                                                                <label for="latitude2">Latitude</label>
-                                                                <input type="text" v-model="latitude2"
-                                                                    class="form-control" id="latitude2"
-                                                                    placeholder="Latitude" required>
+                                                                <label for="address_latitude">Latitude</label>
+                                                                <input type="text" v-model="address_latitude"
+                                                                    class="form-control" id="address_latitude"
+                                                                    placeholder="Latitude">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <!-- Longitude 2 -->
                                                             <div class="form-group mb-3">
-                                                                <label for="longitude2">Longitude</label>
-                                                                <input type="text" v-model="longitude2"
-                                                                    class="form-control" id="longitude2"
-                                                                    placeholder="Longitude" required>
+                                                                <label for="address_longitude">Longitude</label>
+                                                                <input type="text" v-model="address_longitude"
+                                                                    class="form-control" id="address_longitude"
+                                                                    placeholder="Longitude">
                                                             </div>
                                                         </div>
                                                     </div>
-
 
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <!--Country-->
                                                             <div class="form-group mb-3">
-                                                                <label for="country_id">Country</label>
-                                                                <select v-model="user.country_id" id="country_id"
-                                                                    class="custom-select" required>
+                                                                <label for="address_country_id">Country</label>
+                                                                <select v-model="user.address_country_id"
+                                                                    id="address_country_id" class="custom-select">
                                                                     <option value="" disabled selected
                                                                         class="text-muted">
-                                                                        Select country_id
+                                                                        Select country
                                                                     </option>
                                                                     <option v-for="countryData in countryDatas"
                                                                         :key="countryData.id" :value="countryData.id">
@@ -356,9 +391,9 @@
                                                         <div class="col-md-6">
                                                             <!--Province-->
                                                             <div class="form-group mb-3">
-                                                                <label for="province_id">Province</label>
-                                                                <select v-model="user.province_id" id="province_id"
-                                                                    class="custom-select" required>
+                                                                <label for="address_province_id">Province</label>
+                                                                <select v-model="user.address_province_id"
+                                                                    id="address_province_id" class="custom-select">
                                                                     <option value="" disabled selected
                                                                         class="text-muted">
                                                                         Select province
@@ -371,14 +406,30 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                     <div class="row">
+                                                        <div class="col-md-6">
+                                                            <!--City-->
+                                                            <div class="form-group mb-3">
+                                                                <label for="address_city_id">City</label>
+                                                                <select v-model="user.address_city_id"
+                                                                    id="address_city_id" class="custom-select">
+                                                                    <option value="" disabled selected
+                                                                        class="text-muted">
+                                                                        Select city
+                                                                    </option>
+                                                                    <option v-for="cityData in cityDatas"
+                                                                        :key="cityData.id" :value="cityData.id">
+                                                                        {{ cityData.city_name }}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
                                                         <div class="col-md-6">
                                                             <!--Kecamatan-->
                                                             <div class="form-group mb-3">
-                                                                <label for="kecamatan_id">Kecamatan</label>
-                                                                <select v-model="user.kecamatan_id" id="kecamatan_id"
-                                                                    class="custom-select" required>
+                                                                <label for="address_kecamatan_id">Kecamatan</label>
+                                                                <select v-model="user.address_kecamatan_id"
+                                                                    id="address_kecamatan_id" class="custom-select">
                                                                     <option value="" disabled selected
                                                                         class="text-muted">
                                                                         Select kecamatan
@@ -391,12 +442,14 @@
                                                                 </select>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    <div class="row">
                                                         <div class="col-md-6">
                                                             <!--kelurahan-->
                                                             <div class="form-group mb-3">
-                                                                <label for="kelurahan_id">Kelurahan</label>
-                                                                <select v-model="user.kelurahan_id" id="kelurahan_id"
-                                                                    class="custom-select" required>
+                                                                <label for="address_kelurahan_id">Kelurahan</label>
+                                                                <select v-model="user.address_kelurahan_id"
+                                                                    id="address_kelurahan_id" class="custom-select">
                                                                     <option value="" disabled selected
                                                                         class="text-muted">
                                                                         Select kelurahan
@@ -407,6 +460,14 @@
                                                                         {{ kelurahanData.kelurahan_name }}
                                                                     </option>
                                                                 </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label for="address">Address</label>
+                                                            <div class="form-group mb-3">
+                                                                <input type="text" v-model="user.address"
+                                                                    class="form-control" id="address"
+                                                                    placeholder="Address">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -430,7 +491,7 @@
                                             <div class="form-group mb-3">
                                                 <label for="father_name">Nama ayah</label>
                                                 <input type="text" v-model="user.father_name" class="form-control"
-                                                    id="father_name" placeholder="Nama ayah" required>
+                                                    id="father_name" placeholder="Nama ayah">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -438,15 +499,15 @@
                                             <div class="form-group mb-3">
                                                 <label for="father_telp">No telp</label>
                                                 <input type="text" v-model="user.father_telp" class="form-control"
-                                                    id="father_telp" placeholder="No telp" required>
+                                                    id="father_telp" placeholder="No telp">
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <!--father_birt_place-->
                                             <div class="form-group mb-3">
                                                 <label for="birth_place">Birth Place</label>
-                                                <select v-model="user.birth_place" name="birth_place" id="birth_place"
-                                                    class="form-control select2">
+                                                <select v-model="user.father_birth_place" name="father_birth_place"
+                                                    id="birth_place" class="form-control select2">
                                                     <option v-for="city in cityDatas" :key="city.id" :value="city.id">
                                                         {{ city.city_name }}
                                                     </option>
@@ -458,7 +519,7 @@
                                             <div class="form-group mb-3">
                                                 <label for="father_birth_date">Birth Date</label>
                                                 <input type="date" v-model="user.father_birth_date" class="form-control"
-                                                    placeholder="Birth Date" required>
+                                                    placeholder="Birth Date">
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -467,9 +528,9 @@
                                                 <label for="father_education">Education</label>
                                                 <select v-model="user.father_education" name="Father education"
                                                     id="father_education" class="form-control select2">
-                                                    <option v-for="educationData in educationDatas"
-                                                        :key="educationData.id" :value="educationData.id">
-                                                        {{ educationData }}
+                                                    <option v-for="education in educationDatas" :key="education.id"
+                                                        :value="education.id">
+                                                        {{ education.education_name }}
                                                     </option>
                                                 </select>
                                             </div>
@@ -483,7 +544,7 @@
                                             <div class="form-group mb-3">
                                                 <label for="mother_name">Nama ibu</label>
                                                 <input type="text" v-model="user.mother_name" class="form-control"
-                                                    id="mother_name" placeholder="Nama ibu" required>
+                                                    id="mother_name" name="mother_name" placeholder="Nama ibu">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
@@ -491,15 +552,15 @@
                                             <div class="form-group mb-3">
                                                 <label for="mother_telp">No telp</label>
                                                 <input type="text" v-model="user.mother_telp" class="form-control"
-                                                    id="mother_telp" placeholder="No telp" required>
+                                                    id="mother_telp" name="mother_telp" placeholder="No telp">
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <!--mother_birt_place-->
                                             <div class="form-group mb-3">
                                                 <label for="birth_place">Birth Place</label>
-                                                <select v-model="user.birth_place" name="birth_place" id="birth_place"
-                                                    class="form-control select2">
+                                                <select v-model="user.mother_birth_place" name="mother_birth_place"
+                                                    id="birth_place" class="form-control select2">
                                                     <option v-for="city in cityDatas" :key="city.id" :value="city.id">
                                                         {{ city.city_name }}
                                                     </option>
@@ -511,18 +572,18 @@
                                             <div class="form-group mb-3">
                                                 <label for="mother_birth_date">Birth Date</label>
                                                 <input type="date" v-model="user.mother_birth_date" class="form-control"
-                                                    placeholder="Birth Date" required>
+                                                    placeholder="Birth Date">
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <!--Father education-->
                                             <div class="form-group mb-3">
-                                                <label for="mother_education">Education</label>
-                                                <select v-model="user.mother_education" name="Father education"
+                                                <label for="father_education">Education</label>
+                                                <select v-model="user.mother_education" name="Father_education"
                                                     id="mother_education" class="form-control select2">
-                                                    <option v-for="educationData in educationDatas"
-                                                        :key="educationData.id" :value="educationData.id">
-                                                        {{ educationData }}
+                                                    <option v-for="education in educationDatas" :key="education.id"
+                                                        :value="education.id">
+                                                        {{ education.education_name }}
                                                     </option>
                                                 </select>
                                             </div>
@@ -532,14 +593,13 @@
                                     <hr>
 
                                     <div>
-                                        <div v-for="(sibling, index) in siblings" :key="index" class="row">
+                                        <div v-for="(sibling, index) in user.siblings" :key="index" class="row">
                                             <div class="col-md-3">
                                                 <!--sibling_name-->
                                                 <div class="form-group mb-3">
                                                     <label for="sibling_name">Nama</label>
                                                     <input type="text" v-model="sibling.sibling_name"
-                                                        class="form-control" id="sibling_name" placeholder="Nama"
-                                                        required>
+                                                        class="form-control" id="sibling_name" placeholder="Nama">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -547,8 +607,7 @@
                                                 <div class="form-group mb-3">
                                                     <label for="sibling_telp">No telp</label>
                                                     <input type="text" v-model="sibling.sibling_telp"
-                                                        class="form-control" id="sibling_telp" placeholder="No telp"
-                                                        required>
+                                                        class="form-control" id="sibling_telp" placeholder="No telp">
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
@@ -569,7 +628,7 @@
                                                 <div class="form-group mb-3">
                                                     <label for="sibling_birth_date">Birth Date</label>
                                                     <input type="date" v-model="sibling.sibling_birth_date"
-                                                        class="form-control" placeholder="Birth Date" required>
+                                                        class="form-control" placeholder="Birth Date">
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
@@ -578,9 +637,9 @@
                                                     <label for="sibling_education">Education</label>
                                                     <select v-model="sibling.sibling_education" name="sibling_education"
                                                         id="sibling_education" class="form-control select2">
-                                                        <option v-for="educationData in educationDatas"
-                                                            :key="educationData.id" :value="educationData.id">
-                                                            {{ educationData }}
+                                                        <option v-for="education in educationDatas" :key="education.id"
+                                                            :value="education.id">
+                                                            {{ education.education_name }}
                                                         </option>
                                                     </select>
                                                 </div>
@@ -589,7 +648,6 @@
 
                                     </div>
                                     <div class="row justify-content-center">
-                                        <!--Sibling education-->
                                         <button type="button" class="btn btn-danger mx-3"
                                             @click="removeSibling(index)">Delete</button>
                                         <button type="button" class="btn btn-success mx-3"
@@ -599,15 +657,19 @@
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row mb-3 mx-4">
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-primary btn-block">Register</button>
                                 </div>
                             </div>
+
+                            <!--Step 2-->
+                            <StepReg2 />
+
+                            <div v-if="error" class="alert alert-danger mt-3">
+                                {{ error }}
+                            </div>
                         </form>
-                        <div v-if="error" class="alert alert-danger mt-3">
-                            {{ error }}
-                        </div>
                     </div>
                 </div>
             </div>
@@ -620,10 +682,13 @@
                 @confirm-location="confirmLocation2" @close-map="showMap2 = false"></map-modal>
         </div>
     </div>
+
 </template>
+
 
 <script setup>
 import LayoutDashboard from "@/components/LayoutDashboard.vue";
+import StepReg2 from "@/components/StepReg2.vue";
 </script>
 
 <script>
@@ -637,94 +702,87 @@ export default {
     data() {
         return {
             user: {
-                role_name_id: '',
-                full_name: '',
                 nickname: '',
-                religion: '',
+                full_name: '',
                 phone_number: '',
-                nisn: '',
-                birth_date: '',
-                birth_place: '',
-                nik_ktp: '',
-                school_code: '',
-                wali_name: '',
-                wali_phone: '',
-                face_data: null,
-                photo_profile: null,
-                about_me: '',
-                nim: '',
-                nip: '',
-                is_active: false,
                 username: '',
                 password: '',
+                nisn: '',
+                nik_ktp: '',
+                nip: '',
+                nim: '',
+                birth_place: '',
+                birth_date: '',
+                wali_name: '',
+                wali_phone: '',
+                school_code: '',
+                bank_name: '',
+                rek_no: '',
+                religion: '',
+                address_latitude: '',
+                address_longtitude: '',
+                address_country_id: '',
+                address_province_id: '',
+                address_city_id: '',
+                address_kecamatan_id: '',
+                address_kelurahan_id: '',
+                address: '',
+                domicilie_latitude: '',
+                domicilie_longtitude: '',
+                domicilie_country_id: '',
+                domicilie_province_id: '',
+                domicilie_city_id: '',
+                domicilie_kecamatan_id: '',
+                domicilie_kelurahan_id: '',
+                domicilie: '',
+                father_name: '',
+                father_telp: '',
+                father_birth_place: '',
+                father_birth_date: '',
+                father_education: '',
+                father_name: '',
+                father_telp: '',
+                father_birth_place: '',
+                father_birth_date: '',
+                father_education: '',
+                mother_name: '',
+                mother_telp: '',
+                mother_birth_place: '',
+                mother_birth_date: '',
+                mother_education: '',
+                mother_name: '',
+                mother_telp: '',
+                mother_birth_place: '',
+                mother_birth_date: '',
+                mother_education: '',
+                siblings: [
+                    {
+                        sibling_name: '',
+                        sibling_telp: '',
+                        birth_place: '',
+                        sibling_birth_date: '',
+                        sibling_education: '',
+                    },
+                ],
+                photo_profile: null,
+                about_me: '',
+                is_active: false,
+
             },
-            siblings: [
-                {
-                    sibling_name: '',
-                    sibling_telp: '',
-                    birth_place: '',
-                    sibling_birth_date: '',
-                    sibling_education: '',
-                },
-            ],
+            datas: [],
             religions: [],
-            rolenames: [],
-            schoolUserCodes: [],
+            schoolCodes: [],
             countryDatas: [],
             provinceDatas: [],
             cityDatas: [],
             kecamatanDatas: [],
             kelurahanDatas: [],
-            bankDatas: [
-                "Bank Mandiri",
-                "Bank Rakyat Indonesia (BRI)",
-                "Bank Negara Indonesia (BNI)",
-                "Bank Central Asia (BCA)",
-                "Bank Syariah Indonesia (BSI)",
-                "Bank CIMB Niaga",
-                "Bank Danamon",
-                "Bank Panin",
-                "Bank Permata",
-                "Bank OCBC NISP",
-                "Bank Tabungan Negara (BTN)",
-                "Bank Maybank Indonesia",
-                "Bank Sinarmas",
-                "Bank Mega",
-                "Bank Bukopin",
-                "Bank BTPN",
-                "Bank Commonwealth",
-                "Bank Jatim",
-                "Bank Jateng",
-                "Bank DKI",
-                "Bank BJB",
-                "Bank Sumut",
-                "Bank Sumsel Babel",
-                "Bank Kalbar",
-                "Bank BPD DIY",
-                "Bank Kalsel",
-                "Bank Papua",
-                "Bank Riau Kepri",
-                "Bank Lampung",
-                "Bank SulutGo",
-                "Bank Maluku Malut",
-                "Bank NTB Syariah",
-                "Bank Aceh Syariah"
-            ],
-            educationDatas: [
-                "SD",
-                "SMP",
-                "SMA",
-                "D1",
-                "D2",
-                "D3",
-                "D4/S1",
-                "S2",
-                "S3",
-            ],
-            latitude: null,
-            longitude: null,
-            latitude2: null,
-            longitude2: null,
+            bankDatas: [],
+            educationDatas: [],
+            domicilie_latitude: null,
+            domicilie_longitude: null,
+            address_latitude: null,
+            address_longitude: null,
             showMap1: false,
             showMap2: false,
             error: null
@@ -734,14 +792,7 @@ export default {
         MapModal
     },
     mounted() {
-        this.fetchReligions();
-        this.fetchRoleNames();
-        this.fetchSchoolUserDatas();
-        this.fetchCountryDatas();
-        this.fetchProvinceDatas();
-        this.fetchCityDatas();
-        this.fetchKecamatanDatas();
-        this.fetchKelurahanDatas();
+        this.fetchData();
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
                 this.latitude = position.coords.latitude;
@@ -753,109 +804,58 @@ export default {
         }
     },
     methods: {
-        async fetchReligions() {
+        async handleRegister() {
             try {
-                const response = await http.get('/religions');
-                this.religions = response.data;
+                const response = await http.post('/register', this.user);
+                // Handle success
+                console.log('Registration successful:', response.data);
+                alert('Registration successful!');
+                this.$router.push('/dashboard');
+            } catch (error) {
+                // Handle error
+                console.error('Registration failed:', error);
+                alert('Registration failed. Please try again.');
+            }
+        },
+        async fetchData() {
+            try {
+                const response = await http.get('/registers');
+                this.cityDatas = response.data.city_datas;
+                this.religions = response.data.religions;
+                this.schoolCodes = response.data.school_codes;
+                this.countryDatas = response.data.country_datas;
+                this.provinceDatas = response.data.province_datas;
+                this.kecamatanDatas = response.data.kecamatan_datas;
+                this.kelurahanDatas = response.data.kelurahan_datas;
+                this.bankDatas = response.data.bank_datas;
+                this.educationDatas = response.data.education_datas;
             } catch (error) {
                 this.error = 'Failed to fetch religions';
             }
-        },
-        async fetchRoleNames() {
-            try {
-                const response = await http.get('/role-names');
-                this.rolenames = response.data;
-            } catch (error) {
-                this.error = 'Failed to fetch role names';
-            }
-        },
-        async fetchSchoolUserDatas() {
-            try {
-                const response = await http.get('/school-user-codes');
-                this.schoolUserCodes = response.data;
-            } catch (error) {
-                this.error = 'Failed to fetch school user codes';
-            }
-        },
-        async fetchCountryDatas() {
-            try {
-                const response = await http.get('/country-datas');
-                this.countryDatas = response.data;
-            } catch (error) {
-                this.error = 'Failed to fetch address datas';
-            }
-        },
-        async fetchProvinceDatas() {
-            try {
-                const response = await http.get('/province-datas');
-                this.provinceDatas = response.data;
-            } catch (error) {
-                this.error = 'Failed to fetch address datas';
-            }
-        },
-        async fetchCityDatas() {
-            try {
-                const response = await http.get('/city-datas');
-                this.cityDatas = response.data;
-            } catch (error) {
-                this.error = 'Failed to fetch address datas';
-            }
-        },
-        async fetchKecamatanDatas() {
-            try {
-                const response = await http.get('/kecamatan-datas');
-                this.kecamatanDatas = response.data;
-            } catch (error) {
-                this.error = 'Failed to fetch address datas';
-            }
-        },
-        async fetchKelurahanDatas() {
-            try {
-                const response = await http.get('/kelurahan-datas');
-                this.kelurahanDatas = response.data;
-            } catch (error) {
-                this.error = 'Failed to fetch address datas';
-            }
-        },
-        async handleRegister() {
-            const formData = new FormData();
-            Object.keys(this.user).forEach(key => {
-                formData.append(key, this.user[key]);
-            });
-
-            try {
-                await http.post('/register', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                });
-                this.$router.push('/login');
-            } catch (error) {
-                this.error = error.response.data.message || 'An error occurred. Please try again.';
-            }
+            console.log(this.datas);
         },
         updateLocation1(location) {
-            this.latitude = location.lat;
-            this.longitude = location.lng;
+            this.domicilie_latitude = location.lat;
+            this.domicilie_longitude = location.lng;
             this.getAddress(location.lat, location.lng, 'address');
         },
         confirmLocation1() {
-            this.user.latitude = this.latitude;
-            this.user.longitude = this.longitude;
+            this.user.domicilie_latitude = this.latitude;
+            this.user.domicilie_longitude = this.longitude;
             this.showMap1 = false;
         },
         updateLocation2(location) {
-            this.latitude2 = location.lat;
-            this.longitude2 = location.lng;
+            this.address_latitude = location.lat;
+            this.address_longitude = location.lng;
             this.getAddress(location.lat, location.lng, 'address2');
         },
         confirmLocation2() {
-            this.user.latitude2 = this.latitude2;
-            this.user.longitude2 = this.longitude2;
+            this.user.address_latitude = this.address_latitude;
+            this.user.address_longitude = this.address_longitude;
             this.showMap2 = false;
         },
         addSibling() {
-            this.siblings.push({
+            this.user.siblings.push({
                 sibling_name: '',
                 sibling_telp: '',
                 birth_place: '',
@@ -864,7 +864,7 @@ export default {
             });
         },
         removeSibling(index) {
-            this.siblings.splice(index, 1);
+            this.user.siblings.splice(index, 1);
         },
     },
 };
